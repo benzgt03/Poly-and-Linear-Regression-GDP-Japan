@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd  # import libary ต่างๆที่จะใช้
 
+
 #Preparation
 
 gdp = pd.read_csv("C:\\Users\\Admin\\Desktop\\PortGT03\\GDP .csv")
@@ -46,7 +47,7 @@ y_prediction = lm.predict(a)
 print('ทำนายGDPปี 2021 , 2022 =',y_prediction)
 
 #plot Linear
-plt.scatter(X,y)
+plt.scatter(X_train,y_train)
 plt.ylabel('Gdp point')
 plt.xlabel('Year 19/20')
 plt.title('Slope from Linear Regression model')
@@ -54,32 +55,30 @@ prd = lm.predict(X_test)
 plt.plot(X_test, prd, 'r')
 
 #Polynomial Regression
-poly_reg = PolynomialFeatures(degree=2)
-X_poly = poly_reg.fit_transform(X_test)
-lm.fit(X_poly,y_test)
-print("polyIntercept =", lm.intercept_)
-print("polyCoefficient =", lm.coef_)
-print('polylm score =', lm.score(X_poly, y_train))
-y_pred = lm.predict(X_poly)
-print('polyCoefficient of determination: %.2f (The best case is 1)' % r2_score(y_test, y_pred))
-print('polyRoot Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y_test, y_pred))))
+from sklearn.model_selection import train_test_split
+xtrain, xtest, ytrain, ytest = train_test_split(X, y, test_size = 2)
+
+poly_reg = PolynomialFeatures(degree = 3)
+X_poly = poly_reg.fit_transform(X_train)
+poly_reg.fit(X_poly, y_train)
+lm2 = LinearRegression()
+lm2.fit(X_poly, y_train)
+print("polyIntercept =", lm2.intercept_)
+print("polyCoefficient =", lm2.coef_)
+print('polylm score =', lm2.score(X_poly, y_train))
+y_pred = lm2.predict(poly_reg.fit_transform(X))
+print('polyCoefficient of determination: %.2f (The best case is 1)' % r2_score(y, y_pred))
+print('polyRoot Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y, y_pred))))
 
 #plot polynomial
 fig2 = plt.figure()
-prd1= lm.predict(X_poly)
+prd1 = lm2 .predict(poly_reg.fit_transform(X))
 axes3 = fig2.add_axes([0.1, 0.1, 0.8, 0.8])
-axes3.plot(X_test, prd1, 'r')
+axes3.plot(X, lm2.predict(poly_reg.fit_transform(X)))
 axes3.set_title('Slope from PolyRegression Model')
-axes3.scatter(X,y)
-
-
-
-
-
-
+axes3.scatter(X_train,y_train)
 
 plt.show()
-
 
 
 
