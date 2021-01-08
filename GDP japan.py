@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd  # import libary ต่างๆที่จะใช้
 
 #Preparation
-covid_19 = pd.read_excel(r'C:\Users\Admin\Desktop\PortGT03\Covid19.xlsx')
+
 gdp = pd.read_csv("C:\\Users\\Admin\\Desktop\\PortGT03\\GDP .csv")
 df_gdp =pd.DataFrame(gdp)
 df_gdpjapan = df_gdp[df_gdp['Country Name'] == 'Japan'].drop(['Country Name','Country Code','Indicator Name','Indicator Code'],axis=1)
