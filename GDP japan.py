@@ -47,7 +47,7 @@ y_prediction = lm.predict(a)
 print('ทำนายGDPปี 2021 , 2022 =',y_prediction)
 
 #plot Linear
-plt.scatter(X_train,y_train)
+plt.scatter(X,y)
 plt.ylabel('Gdp point')
 plt.xlabel('Year 19/20')
 plt.title('Slope from Linear Regression model')
@@ -76,7 +76,7 @@ prd1 = lm2 .predict(poly_reg.fit_transform(X))
 axes3 = fig2.add_axes([0.1, 0.1, 0.8, 0.8])
 axes3.plot(X, lm2.predict(poly_reg.fit_transform(X)))
 axes3.set_title('Slope from PolyRegression Model')
-axes3.scatter(X_train,y_train)
+axes3.scatter(X,y)
 
 plt.show()
 
